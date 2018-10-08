@@ -165,3 +165,17 @@ func RunRakeI18N(text string, stopWords []string) PairList {
 func RunRake(text string) PairList {
 	return RunRakeI18N(text, []string{})
 }
+
+// Runner runs RAKE.
+type Runner struct {
+	Max int
+}
+
+// Run RAKE on the provided text input returning up to Max Pairs.
+func (r Runner) Run(text string) PairList {
+	list := RunRake(text)
+	if r.Max > 0 && len(list) > r.Max {
+		return list[:r.Max]
+	}
+	return list
+}
